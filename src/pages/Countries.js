@@ -3,9 +3,12 @@ import React, {  useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {  reduxTenCountries } from '../store/countries/selectors'
 import { fetchCountries } from '../store/countries/actions'
+import { userLoggedIn } from '../store/user/selectors'
+import { Redirect } from 'react-router-dom'
 
 export default function Countries() {
-    const countriesListStore = useSelector(reduxTenCountries)    
+    const countriesListStore = useSelector(reduxTenCountries)  
+    const loggedIn = useSelector(userLoggedIn)  
     const dispatch = useDispatch()
 
     useEffect(()=> {
@@ -14,6 +17,10 @@ export default function Countries() {
     },[dispatch])
 
     console.log("1||7. The countries Comp. gets redenderd",countriesListStore)
+
+    console.log("am I logged in?", loggedIn)
+    if(!loggedIn ) return <Redirect to="/login" />
+
     return (
         <div className="countryHolder">
             <button onClick={e=> dispatch({type: "RESET_COUNTRIES"}) }>RESET</button>    

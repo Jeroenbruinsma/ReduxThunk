@@ -20,6 +20,11 @@ export const signUp = (name, email, password) =>{
         }
     }
 }
+// localStorage.setItem("lastname", "Smith");
+
+// localStorage.getItem("lastname");
+
+
 export const login = ( email, password) =>{
     return async (dispatch, getState) => {
         console.log("login" , email , password)
@@ -31,7 +36,7 @@ export const login = ( email, password) =>{
                   password
                 }
               })
-            
+            localStorage.setItem("jwt", result.jwt);
             console.log("what is result",result)
             dispatch({type: "LOGIN" , payload: result.jwt})
         }
@@ -42,12 +47,28 @@ export const login = ( email, password) =>{
     }
 }
 
-export const getProfile = () =>{
+export const getProfile = (token) =>{
   return async (dispatch, getState) => {
-    console.log("token" ,getState().user.jwt)
-    api("/me", { jwt: getState().user.jwt })
-    .then(data => console.log("data", data))
-    .catch(err => console.log("err", err));
+    const tokenFromStore = getState().user.jwt
+    try{
+      if(tokenFromStore){
+        console.log("use the token from reduxState" ,getState().user.jwt)
+        const result = await api("/me", { jwt: getState().user.jwt })
+        console.log("what is the result", result)
+        dispatch({type: "REDIRECT", payload: true})
+      }
+      else{
+        console.log("use the token from localStorage")
+        const response = await api("/me", { jwt: token })
+        console.log("what is the result", response)
+        dispatch({type: "REDIRECT", payload: true})
+        dispatch({type: "LOGIN", payload: token})
+      }
+    }
+    catch(err){
+        dispatch({type: "REDIRECT", payload: false})
+       console.log("err", err)
+     }
     }
 }
 

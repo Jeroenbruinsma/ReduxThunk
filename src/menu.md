@@ -17,6 +17,7 @@ Today: Login and Signup
         5.1 Store the token in the store🗄️ 
 
     14:30  LocalState
+        5.2 Store the userData in the store🗄️ 
 
 17:00
 Tomorrow: Webshop FrontEnd

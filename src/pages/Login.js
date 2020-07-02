@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { login, getProfile } from '../store/user/actions'
+import { Redirect } from 'react-router-dom'
 
 export default function Login() {
 
@@ -8,15 +9,24 @@ export default function Login() {
     const [ password ,  set_password ] = useState("")
 
     const dispatch = useDispatch()
+    const redirect = useSelector(reduxStore => reduxStore.user.redirect)
 
     const signUpHandler = (event) => {
         event.preventDefault()
-        // console.log("signupHandler", firstName , email , password)
         dispatch( login( email, password))
     }
 
+    useEffect(()=> {
+        console.log("what is my token???", localStorage.getItem("jwt"))
+        dispatch(getProfile(localStorage.getItem("jwt")))
+    },[])
+
+    console.log("do i need to redirect the user?", redirect)
+
+    
     return (
         <div>
+        {redirect ? <Redirect to="/profile"/> : null}
             <h3>Login</h3>
                 <form onSubmit={signUpHandler}>
                     <input placeholder="Email"     value={email} onChange={e => set_email(e.target.value)}     />
