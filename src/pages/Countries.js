@@ -1,29 +1,24 @@
 import React, {  useEffect } from 'react'
-import Axios from "axios"
+
 import { useSelector, useDispatch } from 'react-redux'
+import {  reduxTenCountries } from '../store/countries/selectors'
+import { fetchCountries } from '../store/countries/actions'
 
 export default function Countries() {
-    const url = "https://restcountries.eu/rest/v2/all"
-
-    const countriesListStore = useSelector(reduxStore => reduxStore.countries)    
+    const countriesListStore = useSelector(reduxTenCountries)    
     const dispatch = useDispatch()
 
-    const fetchCountries = async (url) => {
-        const response =  await Axios.get(url)
-        dispatch({type: "FETCH_COUNTRIES", payload: response.data})
-
-    }
     useEffect(()=> {
-        fetchCountries(url)
-    },[url])
+        console.log("2. useEffect fires")
+        dispatch(  fetchCountries()  )
+    },[dispatch])
 
+    console.log("1||7. The countries Comp. gets redenderd",countriesListStore)
     return (
         <div className="countryHolder">
-            
             <button onClick={e=> dispatch({type: "RESET_COUNTRIES"}) }>RESET</button>    
-            
-            {countriesListStore.map( countryCard => {
-                return <div className="countryCard"> 
+            {countriesListStore.map( (countryCard,i) => {
+                return <div className="countryCard" key={i}> 
                     <h1> {countryCard.name}</h1>
                     <p><b>Population</b>: {countryCard.population /1000000} M </p>
                     <p><b>Area</b>: {countryCard.area}</p>
