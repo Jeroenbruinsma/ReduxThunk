@@ -24,7 +24,6 @@ export default function Countries() {
                     <p><b>Area</b>: {countryCard.area}</p>
                 </div>
             })}
-            
         </div>
     )
 }

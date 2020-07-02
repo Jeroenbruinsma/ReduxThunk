@@ -1,13 +1,23 @@
-Thunks 
+Today: Login and Signup   
 
-functions executed by redux!
+    1. Warming up ☕: what did we lean so far?  
+    
+    https://coggle.it/diagram/Xv2JjmR-uwzy2x9e/t/-/ae1f6a279a106da20aa311c4e2e8c8a1fd64d7838cfd5456b0ba92409e51c85b
+    
+    2. Talk about login(JWT) 🔐🤐 and signup 🔑
 
-1. setting up my store
-    1.1 store folder.
-    1.2 wrapping app in an provider
-    1.3 reducers??? = {}
-    1.4 useSelect?? in 2 way
-2. send the data to the store
-3. display the data from the store
-4. use thunks! (13:30)
-2. send the data to the store -> let the store do the axios.get
+    3. Add routing to my app  🛣️
+        3.1.    Wrapp App in a Router
+        3.2     Add a switch to App.js
+        3.3     Add a Routes to my App
+        3.4     Create a HomePage 🏠
+        <Done/>
+    4.  Create (or copy ©️ a singUp component)
+    5.  Create (or copy ©️ a login component)
+        5.1 Store the token in the store🗄️ 
+
+    14:30  LocalState
+
+17:00
+Tomorrow: Webshop FrontEnd
+
